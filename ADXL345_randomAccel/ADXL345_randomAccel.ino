@@ -93,13 +93,8 @@ void loop() {
     // Serial.print(" , ");
     // Serial.println(z);
 
-  Serial.print("x ");
-  Serial.print(x );
-  Serial.print(" y ");
-  Serial.print(y );
-  Serial.print(" z ");
-  Serial.print(z );
-  Serial.println("");
+
+  // Serial.println("");
 
     double xyz[3];
     double ax, ay, az;
@@ -117,8 +112,13 @@ void loop() {
     // Serial.print(az);
     // Serial.println(" g");
     // Serial.println("**********************");
-
-  Serial.print("xg ");
+ Serial.print("x ");
+  Serial.print(x );
+  Serial.print(" y ");
+  Serial.print(y );
+  Serial.print(" z ");
+  Serial.print(z );
+  Serial.print(" xg ");
   Serial.print(ax );
   Serial.print(" yg ");
   Serial.print(ay );
