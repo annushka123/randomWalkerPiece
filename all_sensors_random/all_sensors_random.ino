@@ -121,20 +121,25 @@ void loop() {
     ay = xyz[1];
     az = xyz[2];
 
+  Serial.println("");
   Serial.print("x ");
   Serial.print(x );
+  Serial.println("");
   Serial.print(" y ");
   Serial.print(y );
+  Serial.println("");
   Serial.print(" z ");
   Serial.print(z );
+  Serial.println("");
   Serial.print(" xg ");
-  Serial.print(ax );
+  Serial.println("");
   Serial.print(" yg ");
   Serial.print(ay );
+  Serial.println("");
   Serial.print(" zg ");
   Serial.print(az );
   Serial.println("");
-  delay(500);
+  delay(100);
 
 
 //slider code
@@ -143,7 +148,7 @@ void loop() {
   Serial.print("slider ");
   Serial.print(potVal);
   Serial.println("");
-  delay(15);
+  delay(10);
 
   buttonState2 = digitalRead(input2Pin);
   buttonState3 = digitalRead(input3Pin);
@@ -200,20 +205,21 @@ void loop() {
 
       int analogReading = analogRead(FORCE_SENSOR_PIN);
 
-  Serial.print("Force sensor reading = ");
-  Serial.print(analogReading); // print the raw analog reading
+  Serial.print("Force_sensor ");
+  Serial.print(analogReading);
+  // Serial.println(""); // print the raw analog reading
 
-  if (analogReading < 10)       // from 0 to 9
-    Serial.println(" -> no pressure");
-  else if (analogReading < 200) // from 10 to 199
-    Serial.println(" -> light touch");
-  else if (analogReading < 500) // from 200 to 499
-    Serial.println(" -> light squeeze");
-  else if (analogReading < 800) // from 500 to 799
-    Serial.println(" -> medium squeeze");
-  else // from 800 to 1023
-    Serial.println(" -> big squeeze");
+  // if (analogReading < 10)       // from 0 to 9
+  //   Serial.println(" -> no pressure");
+  // else if (analogReading < 200) // from 10 to 199
+  //   Serial.println(" -> light touch");
+  // else if (analogReading < 500) // from 200 to 499
+  //   Serial.println(" -> light squeeze");
+  // else if (analogReading < 800) // from 500 to 799
+  //   Serial.println(" -> medium squeeze");
+  // else // from 800 to 1023
+  //   Serial.println(" -> big squeeze");
 
-  delay(1000);
+  delay(100);
 
 }
