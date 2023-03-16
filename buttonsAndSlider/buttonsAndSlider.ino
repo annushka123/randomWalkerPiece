@@ -63,7 +63,7 @@ void loop() {
 
    if (buttonState2 != lastButtonState2) {
     // check if the pushbutton is pressed. 
-//Serial.println("1");
+
   
 
       if (buttonState2 == LOW) {
