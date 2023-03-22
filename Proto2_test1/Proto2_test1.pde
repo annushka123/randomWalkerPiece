@@ -3,7 +3,7 @@ import netP5.*;
 
 java.util.Random generator;
 
-GassE g;
+LineP l;
 //Slider s;
 
 OscP5 oscP5;
@@ -44,7 +44,7 @@ void setup(){
   
   
   generator = new java.util.Random();
-  g = new GassE();
+  l = new LineP();
   //s = new Slider();
   background(0);
   
@@ -54,13 +54,13 @@ void draw(){
  
   if(button2 == 2) {
   
-  g.display(posx, accelx, accely); 
-  g.colors(100, green, blue);
+  l.display(posx, accelx, accely); 
+  l.colors(100, green, blue);
   println("red", red);
-  g.display(posy, accely*10, 400);
-  g.colors(red, green, blue);
-  g.display(posz, 180, 400);
-  g.colors(red, green, blue);
+  l.display(posy, accely*10, 400);
+  l.colors(red, green, blue);
+  l.display(posz, 180, 400);
+  l.colors(red, green, blue);
   
   
   }

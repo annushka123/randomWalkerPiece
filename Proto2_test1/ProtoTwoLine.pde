@@ -1,4 +1,4 @@
-class GassE {
+class LineP {
   
   float num;
   float x,y;
@@ -11,7 +11,7 @@ class GassE {
   float alphaS = 10;
   
   
-  GassE() {
+  LineP() {
     
   
     
