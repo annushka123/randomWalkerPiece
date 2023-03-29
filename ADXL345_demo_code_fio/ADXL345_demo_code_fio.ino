@@ -27,28 +27,8 @@
 #include <Wire.h>
 #include <ADXL345.h>
 
-#define FORCE_SENSOR_PIN A0
-
 
 ADXL345 adxl; //variable adxl is an instance of the ADXL345 library
-
-int const potSlider = A7;
-int potVal;
-
-
-const int input2Pin = 2;
-const int input3Pin = 3;
-const int input4Pin = 4;
-
-int buttonState2 = 0;
-int lastButtonState2 = 0;
-
-int buttonState3 = 0;
-int lastButtonState3 = 0;
-
-int buttonState4 = 0;
-int lastButtonState4 = 0;
-
 
 void setup() {
     Serial.begin(57600);
@@ -75,14 +55,14 @@ void setup() {
     adxl.setTapDetectionOnZ(1);
 
     //set values for what is a tap, and what is a double tap (0-255)
-    adxl.setTapThreshold(200); //62.5mg per increment
+    adxl.setTapThreshold(150); //62.5mg per increment
     adxl.setTapDuration(15); //625us per increment
     adxl.setDoubleTapLatency(80); //1.25ms per increment
     adxl.setDoubleTapWindow(200); //1.25ms per increment
 
     //set values for what is considered freefall (0-255)
     adxl.setFreeFallThreshold(21); //(5 - 9) recommended - 62.5mg per increment
-    adxl.setFreeFallDuration(60); //(20 - 70) recommended - 5ms per increment
+    adxl.setFreeFallDuration(45); //(20 - 70) recommended - 5ms per increment
 
     //setting all interrupts to take place on int pin 1
     //I had issues with int pin 2, was unable to reset it
@@ -98,10 +78,6 @@ void setup() {
     adxl.setInterrupt(ADXL345_INT_FREE_FALL_BIT,  1);
     adxl.setInterrupt(ADXL345_INT_ACTIVITY_BIT,   1);
     adxl.setInterrupt(ADXL345_INT_INACTIVITY_BIT, 1);
-
-    pinMode(input2Pin, INPUT_PULLUP);
-    pinMode(input3Pin, INPUT_PULLUP);
-    pinMode(input4Pin, INPUT_PULLUP);
 }
 
 void loop() {
@@ -109,10 +85,13 @@ void loop() {
     //Boring accelerometer stuff
     int x, y, z;
     adxl.readXYZ(&x, &y, &z); //read the accelerometer values and store them in variables  x,y,z
-
-
-
-  // Serial.println("");
+    // Output x,y,z values
+    Serial.print("values of X , Y , Z: ");
+    Serial.print(x);
+    Serial.print(" , ");
+    Serial.print(y);
+    Serial.print(" , ");
+    Serial.println(z);
 
     double xyz[3];
     double ax, ay, az;
@@ -120,107 +99,16 @@ void loop() {
     ax = xyz[0];
     ay = xyz[1];
     az = xyz[2];
-
-  Serial.println("");
-  Serial.print("x ");
-  Serial.print(x );
-  Serial.println("");
-  Serial.print(" y ");
-  Serial.print(y );
-  Serial.println("");
-  Serial.print(" z ");
-  Serial.print(z );
-  Serial.println("");
-  Serial.print(" xg ");
-  Serial.print(ax );
-  Serial.println("");
-  Serial.print(" yg ");
-  Serial.print(ay );
-  Serial.println("");
-  Serial.print(" zg ");
-  Serial.print(az );
-  Serial.println("");
-  delay(100);
-
-
-//slider code
-  float voltage = potVal * (3.3 / 1023.0);
-  potVal = analogRead(potSlider);
-  Serial.print("slider ");
-  Serial.print(potVal);
-  Serial.println("");
-  delay(10);
-
-  buttonState2 = digitalRead(input2Pin);
-  buttonState3 = digitalRead(input3Pin);
-  buttonState4 = digitalRead(input4Pin);
-
-   if (buttonState2 != lastButtonState2) {
-    // check if the pushbutton is pressed. 
-
-      if (buttonState2 == LOW) {
-       Serial.print("button_two ");
-       Serial.print("2 "); 
-       Serial.println("");
-
-      }
-
-    }
-
-    lastButtonState2 = buttonState2;
-
-    delay(10);
-
-    //  //compare buttonSate to its previous state
-  if (buttonState3 != lastButtonState3) {
-    // check if the pushbutton is pressed. 
-
-      if (buttonState3 == LOW) {
-       Serial.print("button_three ");
-       Serial.print("3 "); 
-       Serial.println(""); 
-      }       
-  
-    }
-
-    lastButtonState3 = buttonState3;
-
-    delay(10);
-
-    
-    //  //compare buttonSate to its previous state
-  if (buttonState4 != lastButtonState4) {
-    // check if the pushbutton is pressed. 
-
-      if (buttonState4 == LOW) {
-       Serial.print("button_four ");
-       Serial.print("4 "); 
-       Serial.println("");
-      }
-
-    }
-
-    lastButtonState4 = buttonState4;
-
-    delay(10);
-
-      int analogReading = analogRead(FORCE_SENSOR_PIN);
-
-  Serial.print("Force_sensor ");
-  Serial.print(analogReading);
-  // Serial.println(""); // print the raw analog reading
-
-  // if (analogReading < 10)       // from 0 to 9
-  //   Serial.println(" -> no pressure");
-  // else if (analogReading < 200) // from 10 to 199
-  //   Serial.println(" -> light touch");
-  // else if (analogReading < 500) // from 200 to 499
-  //   Serial.println(" -> light squeeze");
-  // else if (analogReading < 800) // from 500 to 799
-  //   Serial.println(" -> medium squeeze");
-  // else // from 800 to 1023
-  //   Serial.println(" -> big squeeze");
-
-  delay(100);
+    Serial.print("X=");
+    Serial.print(ax);
+    Serial.println(" g");
+    Serial.print("Y=");
+    Serial.print(ay);
+    Serial.println(" g");
+    Serial.print("Z=");
+    Serial.print(az);
+    Serial.println(" g");
+    Serial.println("**********************");
+    delay(500);
 
 }

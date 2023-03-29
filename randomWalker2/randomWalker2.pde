@@ -22,7 +22,9 @@ int fsrSense;
 int button2;
 int button3;
 int button4;
+
 Drop[] drops = new Drop[50];
+
 float red;
 float green;
 float blue;
@@ -31,13 +33,17 @@ int diameter=10  ;
 float circX;
 float circY;
 
+float[] xValues;
+float[] yValues;
+int i = 0;
+
 float linePX;
 float linePY;
 float lineX;
 float lineY;
 
 void setup(){
-  size(800, 800);
+  size(800, 800, P3D);
   
   for (int i = 0; i < drops.length; i ++ ) {
   drops[i] = new Drop();
@@ -70,28 +76,29 @@ void draw(){
   background(0);
   if(button2 == 2) {
   
-  //g.display(posx, accelx, accely); 
-  //g.colors(100, green, blue);
-  //println("red", red);
-  //g.display(posy, accely*10, 400);
-  //g.colors(red, green, blue);
-  //g.display(posz, 180, 400);
-  //g.colors(red, green, blue);
+  //noStroke();
+  //fill(red, green, blue, 230);
+  //circle(circX, circY, diameter);
+  //println(circX);
+  //println(circY);
   
-  noStroke();
-  fill(red, green, blue, 230);
-  circle(circX, circY, diameter);
-  println(circX);
-  println(circY);
-  //println("x: ", posx);
-  //println("y: ", posy);
-  ////lineX=circX;
-  ////lineY=circY;
-  //linePX=lineX-2;
-  //linePY=lineY-2;
-  //stroke(red, green, blue,10);
-  //strokeWeight(3);
-  //line(linePX, linePY, lineX, lineY);
+  pushMatrix();
+  translate(400, 400, 0);
+  //rect(posx, posy, posx+100, posy+100);
+  println("y", posy+100);
+  println("x ", posx);
+  rotateX(radians(posx));
+  
+  
+  rotateY(radians(posy));
+  
+  stroke(255);
+  noFill();
+  
+  box(posx, posy, posz);
+  
+  popMatrix();
+
   
   int dropLength = int(map(fsrSense, 0, 450, 0, 50));
   
@@ -104,7 +111,7 @@ void draw(){
   
   }
   
-  if(button4 == 4) {
+  else if(button4 == 4) {
     println(4);
    
     background(0);
@@ -117,16 +124,9 @@ public void posX(float numsX) {
   
   posx = numsX;
   
-  if(posx > 200 && posx < 250) { 
-  
-  circX = map(posx, 230, 250, 10, width-10);
-  
-  } else if(posx <200 && posx > 280) {
-   
-   circX = map(posx, 100, 400, width/2-10, width/2+10);
-    
-  }
-  lineX = map(posx, 100, 350, 0, width);
+  xValues[i] = posx;
+
+  i++;
  
   
 }
@@ -135,9 +135,9 @@ public void posY(float numsY) {
   
   posy = numsY;
   
-  if(posy > -60 && posy <60) {
-    circY = map(posy, -60, 60, 0, height);
-  }
+  
+  yValues[i] = posy;
+  i--;
   
   
   lineY = map(posy, -40, 40, 0, height);

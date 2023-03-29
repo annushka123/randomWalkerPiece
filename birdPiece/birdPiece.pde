@@ -1,10 +1,12 @@
 import oscP5.*;
 import netP5.*;
 
-java.util.Random generator;
 
-GassE g;
+Birds Onebird;
 //Slider s;
+Birds[] bird = new Birds[100];
+ManyBirds[] birdFriends = new ManyBirds[50];
+Drop[] drops = new Drop[50];
 
 OscP5 oscP5;
 
@@ -21,8 +23,8 @@ int sliderPot;
 int fsrSense;
 int button2;
 int button3;
-int button4;
-Drop[] drops = new Drop[50];
+int button4; 
+
 float red;
 float green;
 float blue;
@@ -39,8 +41,16 @@ float lineY;
 void setup(){
   size(800, 800);
   
-  for (int i = 0; i < drops.length; i ++ ) {
-  drops[i] = new Drop();
+  Onebird = new Birds();
+  
+  for (int b = 0; b < bird.length; b++) {
+    
+    bird[b] = new Birds();
+  }
+  
+  for (int i = 0; i < birdFriends.length; i ++ ) {
+  birdFriends[i] = new ManyBirds();
+  
   }
   
   oscP5 = new OscP5(this, 6002);
@@ -56,11 +66,7 @@ void setup(){
   oscP5.plug(this, "buttonThree", "/buttonThree");
   oscP5.plug(this, "buttonFour", "/buttonFour");
   
-  
-  smooth();
-  generator = new java.util.Random();
-  g = new GassE();
-  //s = new Slider();
+
   //background(0);
   //noStroke();
   
@@ -69,38 +75,36 @@ void setup(){
 void draw(){
   background(0);
   if(button2 == 2) {
+    
+    //pushMatrix();
+    //translate(width/2, height/2);
+    
+ int dropLength = int(map(fsrSense, 0, 450, 0, 20));
+ for(int i=0; i<dropLength; i++) {
+   
+    bird[i].update();
+    bird[i].checkEdges();
+    bird[i].display();  
+    
+    birdFriends[i].update();
+    birdFriends[i].checkEdges();
+    birdFriends[i].display(); 
+    
+    //println(posy);
+    //popMatrix();
+ } 
+ 
+ Onebird.update();
+ Onebird.checkEdges();
+ Onebird.display();
+  //int dropLength = int(map(fsrSense, 0, 450, 0, 50));
   
-  //g.display(posx, accelx, accely); 
-  //g.colors(100, green, blue);
-  //println("red", red);
-  //g.display(posy, accely*10, 400);
-  //g.colors(red, green, blue);
-  //g.display(posz, 180, 400);
-  //g.colors(red, green, blue);
+  //for(int i=0; i<dropLength; i++) {
+  ////int i = int(map(fsrSense, 0, 450, 0, 50));
+  //drops[i].display();
+  //drops[i].rainbow();
   
-  noStroke();
-  fill(red, green, blue, 230);
-  circle(circX, circY, diameter);
-  println(circX);
-  println(circY);
-  //println("x: ", posx);
-  //println("y: ", posy);
-  ////lineX=circX;
-  ////lineY=circY;
-  //linePX=lineX-2;
-  //linePY=lineY-2;
-  //stroke(red, green, blue,10);
-  //strokeWeight(3);
-  //line(linePX, linePY, lineX, lineY);
-  
-  int dropLength = int(map(fsrSense, 0, 450, 0, 50));
-  
-  for(int i=0; i<dropLength; i++) {
-  //int i = int(map(fsrSense, 0, 450, 0, 50));
-  drops[i].display();
-  drops[i].rainbow();
-  println("i: ", i);
-  }
+  //}
   
   }
   
