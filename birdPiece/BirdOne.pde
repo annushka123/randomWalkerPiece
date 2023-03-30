@@ -17,8 +17,8 @@ class SoloBird {
   
   SoloBird() {
     
-    float locx = map(accelx, -0.30, 2.8, 20, width);
-    float locy = map(accely, -0.1, 1.5, 20, height-20);
+    float locx = map(accelx, 0.1, 1.5, 20, width);
+    float locy = map(accely, -0.7, 1.2, 20, height-20);
    
     location = new PVector(locx, locy);
     //println("locX: ", location);
@@ -32,7 +32,7 @@ class SoloBird {
   void update() {
     
     float bowx = map(posx, 130, 300, 20, width-20);
-    float bowy = map(posy, 150, -150, 0, height);
+    float bowy = map(posy, 150, -300, 0, height);
     
     
     PVector bow = new PVector(bowx, bowy);
